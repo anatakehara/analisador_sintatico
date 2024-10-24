@@ -1,5 +1,12 @@
 main() {
     int a=5;
+    int b, c, d;
+    int b, c = a;
+    float f = "k";
+    string f = op
+    
+    string t = "op";
+    string i = 19.5;
     a=5;
     
     if(a>5)

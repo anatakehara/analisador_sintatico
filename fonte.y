@@ -18,7 +18,7 @@
 %token ASPAS_DUPLAS ASPAS_SIMPLES
 %token VIRGULA BARRA HASHTAG PVIRGULA PONTO DOIS_PONTOS
 %token MAIN STRING
-%token ATRIBUICAO CONDICIONAL LOOP DECLARACAO COMPARADORES INCREMENTO
+%token CONDICIONAL LOOP DECLARACAO COMPARADORES INCREMENTO
 
 %start Programa_principal
 
@@ -38,11 +38,15 @@ Comandos: Declaracao
 
 Tipo: INT | FLOAT | STRING ;
 
-// Comandos
+//DECLARAÇÃO - PRONTA
+Declaracao: Tipo Declaracao_aux | Tipo IDENTIFICADOR IGUAL FLOAT PVIRGULA | Tipo IDENTIFICADOR IGUAL INT PVIRGULA | Tipo IDENTIFICADOR IGUAL IDENTIFICADOR PVIRGULA | Tipo IDENTIFICADOR IGUAL ASPAS_DUPLAS IDENTIFICADOR ASPAS_DUPLAS PVIRGULA
+          | error {yyerror("Erro sintático na declaração"); };
+
+Declaracao_aux: IDENTIFICADOR VIRGULA Declaracao_aux | IDENTIFICADOR PVIRGULA
+
+//ATRIBUIÇÃO - PRONTA
 Atribuicao: IDENTIFICADOR IGUAL ExpressaoAritimetica PVIRGULA 
-          | IDENTIFICADOR IGUAL FLOAT PVIRGULA 
           | IDENTIFICADOR IGUAL ASPAS_DUPLAS IDENTIFICADOR ASPAS_DUPLAS PVIRGULA
-          | IDENTIFICADOR IGUAL IDENTIFICADOR PVIRGULA
           | error {yyerror("Erro sintático na atribuição"); };
 
 Condicional: CONDICIONAL ABRE_PARENTESIS Condicao FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE
@@ -52,9 +56,7 @@ Repeticao: LOOP ABRE_PARENTESIS Condicao FECHA_PARENTESIS ABRE_CHAVE Comandos FE
          | LOOP ABRE_PARENTESIS Atribuicao Condicao PVIRGULA ExpressaoAritimetica FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE 
          | error {yyerror("Erro sintático na repetição"); };
 
-Declaracao: Tipo IDENTIFICADOR PVIRGULA 
-          | Tipo IDENTIFICADOR VIRGULA IDENTIFICADOR PVIRGULA
-          | error {yyerror("Erro sintático na declaração"); };
+
 
 // Expressões aritméticas
 ExpressaoAritimetica: ExpressaoAritimetica OP_AR ExpressaoAritimetica 

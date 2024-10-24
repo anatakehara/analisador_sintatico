@@ -14,8 +14,9 @@ ESPACO [\t\r" "]
 
 %%
 
-"int"               { printf("int\n"); return INT; }
+"int"               {return INT; }
 "float"             { return FLOAT; }
+"string"            {return STRING; }
 "main"              { return MAIN; }
 "if"                {return CONDICIONAL; }
 "else"              {return CONDICIONAL; }
@@ -23,7 +24,7 @@ ESPACO [\t\r" "]
 "while"             {return LOOP; }
 "for"               {return LOOP; }
 
-{CARACTERE}+         {printf("%s\n", yytext); return IDENTIFICADOR; }           
+{CARACTERE}+         {return IDENTIFICADOR; }           
 {CARACTERE}+{NUMERO}+  {return IDENTIFICADOR; }          
 {CARACTERE}+{NUMERO}+{CARACTERE}+ {return IDENTIFICADOR; } 
 {NUMERO}+{CARACTERE}+               { printf("Token inválido: %s - Linha: %d\n", yytext, linhas); erros++; }
@@ -41,7 +42,7 @@ ESPACO [\t\r" "]
 \==            {return OP_LOG; }
 [+|-|%|*|/] {return OP_AR;}
 [|\>|\<]    {return OP_LOG;} 
-\=              {printf("%s\n", yytext); return IGUAL;}       
+\=              {return IGUAL;}       
 
 [\{]                {return ABRE_CHAVE;}   
 [\(]               {return ABRE_PARENTESIS;}    
@@ -55,7 +56,7 @@ ESPACO [\t\r" "]
 ,                       {return VIRGULA;}
 [\\]                    {return BARRA;}
 \#                     {return HASHTAG; }
-\;                      {printf("%s\n", yytext); return PVIRGULA;}
+\;                      {return PVIRGULA;}
 \.                      {return PONTO; }
 \:                      {return DOIS_PONTOS;}
 
