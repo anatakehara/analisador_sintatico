@@ -805,27 +805,27 @@ YY_RULE_SETUP
 case 5:
 YY_RULE_SETUP
 #line 21 "anaflex.l"
-{return CONDICIONAL; }
+{return IF; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 22 "anaflex.l"
-{return CONDICIONAL; }
+{return ELSE; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 23 "anaflex.l"
-{return CONDICIONAL; }
+{return ELSEIF; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 24 "anaflex.l"
-{return LOOP; }
+{return WHILE; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 25 "anaflex.l"
-{return LOOP; }
+{return FOR; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP

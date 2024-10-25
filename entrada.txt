@@ -4,7 +4,6 @@ main() {
     int b, c = a;
     float f = "k";
     string f = op
-    
     string t = "op";
     string i = 19.5;
     a=5;
@@ -14,6 +13,11 @@ main() {
         while(a>5)
         {
             a+1;
+        }
+
+        for(i = 0; i < 10; i = i + 1)
+        {
+            a = a + 1;
         }
     }
 }

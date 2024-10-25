@@ -79,11 +79,14 @@ extern int yydebug;
     DOIS_PONTOS = 280,             /* DOIS_PONTOS  */
     MAIN = 281,                    /* MAIN  */
     STRING = 282,                  /* STRING  */
-    CONDICIONAL = 283,             /* CONDICIONAL  */
-    LOOP = 284,                    /* LOOP  */
-    DECLARACAO = 285,              /* DECLARACAO  */
-    COMPARADORES = 286,            /* COMPARADORES  */
-    INCREMENTO = 287               /* INCREMENTO  */
+    IF = 283,                      /* IF  */
+    ELSE = 284,                    /* ELSE  */
+    ELSEIF = 285,                  /* ELSEIF  */
+    WHILE = 286,                   /* WHILE  */
+    FOR = 287,                     /* FOR  */
+    DECLARACAO = 288,              /* DECLARACAO  */
+    COMPARADORES = 289,            /* COMPARADORES  */
+    INCREMENTO = 290               /* INCREMENTO  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

@@ -18,11 +18,13 @@ ESPACO [\t\r" "]
 "float"             { return FLOAT; }
 "string"            {return STRING; }
 "main"              { return MAIN; }
-"if"                {return CONDICIONAL; }
-"else"              {return CONDICIONAL; }
-"else if"           {return CONDICIONAL; }
-"while"             {return LOOP; }
-"for"               {return LOOP; }
+"if"                {return IF; }
+"else"              {return ELSE; }
+"else if"           {return ELSEIF; }
+"while"             {return WHILE; }
+"for"               {return FOR; }
+"printf"            {return PRINTF;}
+"scanf"             {return SCANF; }
 
 {CARACTERE}+         {return IDENTIFICADOR; }           
 {CARACTERE}+{NUMERO}+  {return IDENTIFICADOR; }          

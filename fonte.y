@@ -9,6 +9,8 @@
     int yyerror(const char *str);
 %}
 
+%define parse.error detailed
+
 %token IDENTIFICADOR INT FLOAT 
 %token OR AND NOT
 %token OP_AR OP_LOG IGUAL
@@ -17,8 +19,8 @@
 %token ABRE_COLCHETES FECHA_COLCHETES
 %token ASPAS_DUPLAS ASPAS_SIMPLES
 %token VIRGULA BARRA HASHTAG PVIRGULA PONTO DOIS_PONTOS
-%token MAIN STRING
-%token CONDICIONAL LOOP DECLARACAO COMPARADORES INCREMENTO
+%token MAIN STRING PRINTF SCANF
+%token IF ELSE ELSEIF WHILE FOR DECLARACAO COMPARADORES
 
 %start Programa_principal
 
@@ -40,38 +42,45 @@ Tipo: INT | FLOAT | STRING ;
 
 //DECLARAÇÃO - PRONTA
 Declaracao: Tipo Declaracao_aux | Tipo IDENTIFICADOR IGUAL FLOAT PVIRGULA | Tipo IDENTIFICADOR IGUAL INT PVIRGULA | Tipo IDENTIFICADOR IGUAL IDENTIFICADOR PVIRGULA | Tipo IDENTIFICADOR IGUAL ASPAS_DUPLAS IDENTIFICADOR ASPAS_DUPLAS PVIRGULA
-          | error {yyerror("Erro sintático na declaração"); };
+          | error;
 
 Declaracao_aux: IDENTIFICADOR VIRGULA Declaracao_aux | IDENTIFICADOR PVIRGULA
 
 //ATRIBUIÇÃO - PRONTA
 Atribuicao: IDENTIFICADOR IGUAL ExpressaoAritimetica PVIRGULA 
           | IDENTIFICADOR IGUAL ASPAS_DUPLAS IDENTIFICADOR ASPAS_DUPLAS PVIRGULA
-          | error {yyerror("Erro sintático na atribuição"); };
+          | error;
 
-Condicional: CONDICIONAL ABRE_PARENTESIS Condicao FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE
+//CONDICIONAL - PRONTA
+Condicional: IF ABRE_PARENTESIS Condicao FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE | ELSEIF ABRE_PARENTESIS Condicao FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE | ELSE ABRE_CHAVE Comandos FECHA_CHAVE
            | error {yyerror("Erro sintático de condicional"); };
 
-Repeticao: LOOP ABRE_PARENTESIS Condicao FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE 
-         | LOOP ABRE_PARENTESIS Atribuicao Condicao PVIRGULA ExpressaoAritimetica FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE 
+//REPETIÇÃO - PRONTA
+Repeticao: WHILE ABRE_PARENTESIS Condicao FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE 
+         | FOR ABRE_PARENTESIS Atribuicao Condicao PVIRGULA ExpressaoAritimetica FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE 
          | error {yyerror("Erro sintático na repetição"); };
 
+// Condições lógicas - PRONTA
+Condicao: IDENTIFICADOR OP_LOG ExpressaoAritimetica 
+        | IDENTIFICADOR OP_AR IDENTIFICADOR OP_LOG ExpressaoAritimetica
+        | error {yyerror("Erro na condição"); };
 
 
-// Expressões aritméticas
+//EXPRESSÃO ARITMÉTICA - PRONTA
 ExpressaoAritimetica: ExpressaoAritimetica OP_AR ExpressaoAritimetica 
                     | IDENTIFICADOR 
                     | INT 
                     | FLOAT
-                    | IDENTIFICADOR INCREMENTO
                     | IDENTIFICADOR OP_AR INT
                     | IDENTIFICADOR OP_AR FLOAT
+                    | IDENTIFICADOR IGUAL IDENTIFICADOR
                     | error {yyerror("Erro na expressão aritmética"); };
 
-// Condições lógicas
-Condicao: IDENTIFICADOR OP_LOG ExpressaoAritimetica 
-        | IDENTIFICADOR OP_AR IDENTIFICADOR OP_LOG ExpressaoAritimetica
-        | error {yyerror("Erro na condição"); };
+//PRINT
+Print: PRINTF ABRE_PARENTESIS ASPAS_DUPLAS 
+
+Printf_aux: IDENTIFICADOR | IDENTIFICADOR Printf_aux | 
+
 
 %%
 
