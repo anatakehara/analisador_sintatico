@@ -20,7 +20,7 @@
 %token ASPAS_DUPLAS ASPAS_SIMPLES
 %token VIRGULA BARRA HASHTAG PVIRGULA PONTO DOIS_PONTOS
 %token MAIN STRING PRINTF SCANF
-%token IF ELSE ELSEIF WHILE FOR DECLARACAO COMPARADORES
+%token IF ELSE ELSEIF WHILE FOR DECLARACAO COMPARADORES CODIGO_AUX
 
 %start Programa_principal
 
@@ -35,6 +35,8 @@ Comandos: Declaracao
         | Repeticao 
         | Condicional 
         | ExpressaoAritimetica PVIRGULA
+        | PrintfComando   // Regra para printf
+        | ScanfComando
         | Comandos Comandos
         | error {yyerror("Erro no comando"); };
 
@@ -73,15 +75,17 @@ ExpressaoAritimetica: ExpressaoAritimetica OP_AR ExpressaoAritimetica
                     | FLOAT
                     | IDENTIFICADOR OP_AR INT
                     | IDENTIFICADOR OP_AR FLOAT
+                    | IDENTIFICADOR OP_AR IDENTIFICADOR
                     | IDENTIFICADOR IGUAL IDENTIFICADOR
                     | error {yyerror("Erro na expressão aritmética"); };
 
-//PRINT
-Print: PRINTF ABRE_PARENTESIS ASPAS_DUPLAS 
+//PRINT - PRONTO
+PrintfComando: PRINTF ABRE_PARENTESIS ASPAS_DUPLAS Identificador_aux CODIGO_AUX ASPAS_DUPLAS VIRGULA ExpressaoAritimetica FECHA_PARENTESIS PVIRGULA 
+              | PRINTF ABRE_PARENTESIS ASPAS_DUPLAS Identificador_aux ASPAS_DUPLAS FECHA_PARENTESIS PVIRGULA | error // Para imprimir apenas uma string
 
-Printf_aux: IDENTIFICADOR | IDENTIFICADOR Printf_aux | 
+Identificador_aux: IDENTIFICADOR | IDENTIFICADOR Identificador_aux | PRINTF | PRINTF Identificador_aux | IF | IF Identificador_aux | ELSE | ELSE Identificador_aux | ELSEIF | ELSEIF Identificador_aux | STRING | STRING Identificador_aux | WHILE | WHILE Identificador_aux | FOR | FOR Identificador_aux | PRINTF | PRINTF Identificador_aux | SCANF | SCANF Identificador_aux |MAIN | MAIN Identificador_aux | INT | INT Identificador_aux | FLOAT | FLOAT Identificador_aux| OP_AR | OP_AR Identificador_aux| OP_LOG | OP_LOG Identificador_aux | OR | OR Identificador_aux | AND | AND Identificador_aux | NOT | NOT Identificador_aux| IGUAL | IGUAL Identificador_aux | VIRGULA | VIRGULA Identificador_aux| BARRA | BARRA Identificador_aux | PVIRGULA | PVIRGULA Identificador_aux | PONTO | PONTO Identificador_aux | DOIS_PONTOS | DOIS_PONTOS Identificador_aux | error
 
-
+ScanfComando: SCANF ABRE_PARENTESIS ASPAS_DUPLAS CODIGO_AUX ASPAS_DUPLAS VIRGULA AND IDENTIFICADOR FECHA_PARENTESIS PVIRGULA 
 %%
 
 extern FILE *yyin;

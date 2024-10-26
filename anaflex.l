@@ -10,6 +10,8 @@
 
 CARACTERE [a-zA-ZáéíóúãõâêîôûàèìòùçÁÉÍÓÚÃÕÂÊÎÔÛÀÈÌÒÙÇ]
 NUMERO [0-9]
+PORCENTAGEM [%]
+CODIGO [dfs]
 ESPACO [\t\r" "]
 
 %%
@@ -20,7 +22,7 @@ ESPACO [\t\r" "]
 "main"              { return MAIN; }
 "if"                {return IF; }
 "else"              {return ELSE; }
-"else if"           {return ELSEIF; }
+"elseif"           {return ELSEIF; }
 "while"             {return WHILE; }
 "for"               {return FOR; }
 "printf"            {return PRINTF;}
@@ -34,6 +36,8 @@ ESPACO [\t\r" "]
 {NUMERO}+                          {return INT; } 
 {NUMERO}+[.]{NUMERO}+                {return FLOAT; }
 {NUMERO}+[,]{NUMERO}+               { printf("Token inválido: %s - Linha: %d\n", yytext, linhas); erros++; }
+
+{PORCENTAGEM}{CODIGO} {return CODIGO_AUX;}
 
 "//"[^\n]*             
 
@@ -58,7 +62,7 @@ ESPACO [\t\r" "]
 ,                       {return VIRGULA;}
 [\\]                    {return BARRA;}
 \#                     {return HASHTAG; }
-\;                      {return PVIRGULA;}
+[\;]                      {return PVIRGULA;}
 \.                      {return PONTO; }
 \:                      {return DOIS_PONTOS;}
 

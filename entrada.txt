@@ -20,4 +20,11 @@ main() {
             a = a + 1;
         }
     }
+    printf("oi amanhã ; main + printf scanf main if else elseif 12, 13.4");
+    printf("teste: %d", oi);
+    printf("teste: %s", oi);
+    printf("teste: %f", oi);
+    printf("teste: %s", oi+3);
+    printf("teste: %d", oi+t);
+    scanf("%d", &oi);
 }
