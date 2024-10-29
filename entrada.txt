@@ -1,30 +1,35 @@
 main() {
-    int a=5;
-    int b, c, d;
-    int b, c = a;
-    float f = "k";
-    string f = op
-    string t = "op";
-    string i = 19.5;
-    a=5;
-    
-    if(a>5)
+ 
+    if(a > 5 || a  + b > 9 && 9/3 == 3)
     {
-        while(a>5)
-        {
-            a+1;
-        }
+        printf("oi");
+    }
 
-        for(i = 0; i < 10; i = i + 1)
+    while(a > 5 || b > 3 || a + b == 5)
+    {
+        if(a > 5 || a  + b > 9 && 9/3 == 3)
         {
-            a = a + 1;
+            printf("oi");
+        }
+        i++;
+    }
+
+    A = A%3;
+
+    for(i=0; i<9; i++)
+    {
+        if(a > 5 || a  + b > 9 && 9/3 == 3)
+        {
+            printf("oi");
         }
     }
-    printf("oi amanhã ; main + printf scanf main if else elseif 12, 13.4");
-    printf("teste: %d", oi);
-    printf("teste: %s", oi);
-    printf("teste: %f", oi);
-    printf("teste: %s", oi+3);
-    printf("teste: %d", oi+t);
-    scanf("%d", &oi);
+
+    do
+    {
+        if(a > 5 || a  + b > 9 && 9/3 == 3)
+        {
+            printf("oi");
+        }
+    } while(a > b);
+
 }

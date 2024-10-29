@@ -13,11 +13,13 @@ NUMERO [0-9]
 PORCENTAGEM [%]
 CODIGO [dfs]
 ESPACO [\t\r" "]
+MAIS [+]
+MENOS[-]
 
 %%
 
-"int"               {return INT; }
-"float"             { return FLOAT; }
+"int"               {return TIPO_INT; }
+"float"             { return TIPO_FLOAT; }
 "string"            {return STRING; }
 "main"              { return MAIN; }
 "if"                {return IF; }
@@ -27,6 +29,7 @@ ESPACO [\t\r" "]
 "for"               {return FOR; }
 "printf"            {return PRINTF;}
 "scanf"             {return SCANF; }
+"do"                {return DO; }
 
 {CARACTERE}+         {return IDENTIFICADOR; }           
 {CARACTERE}+{NUMERO}+  {return IDENTIFICADOR; }          
@@ -39,11 +42,21 @@ ESPACO [\t\r" "]
 
 {PORCENTAGEM}{CODIGO} {return CODIGO_AUX;}
 
+{CARACTERE}+{MAIS}{MAIS}         {return INCREMENTO; }           
+{CARACTERE}+{NUMERO}+{MAIS}{MAIS}   {return INCREMENTO; }          
+{CARACTERE}+{NUMERO}+{CARACTERE}+{MAIS}{MAIS}  {return INCREMENTO; }
+
+{CARACTERE}+{MENOS}{MENOS}         {return INCREMENTO; }           
+{CARACTERE}+{NUMERO}+{MENOS}{MENOS}   {return INCREMENTO; }          
+{CARACTERE}+{NUMERO}+{CARACTERE}+{MENOS}{MENOS}  {return INCREMENTO; }
+
 "//"[^\n]*             
 
-[|]            {return OR; }  
-&              {return AND;}    
+\|\|            {return OP_LOG; }  
+\&&              {return OP_LOG;}    
 \!             {return NOT;}
+
+\&          {return AND;}
 
 \==            {return OP_LOG; }
 [+|-|%|*|/] {return OP_AR;}
