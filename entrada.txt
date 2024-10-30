@@ -1,35 +1,5 @@
 main() {
- 
-    if(a > 5 || a  + b > 9 && 9/3 == 3)
-    {
-        printf("oi");
-    }
-
-    while(a > 5 || b > 3 || a + b == 5)
-    {
-        if(a > 5 || a  + b > 9 && 9/3 == 3)
-        {
-            printf("oi");
-        }
-        i++;
-    }
-
-    A = A%3;
-
-    for(i=0; i<9; i++)
-    {
-        if(a > 5 || a  + b > 9 && 9/3 == 3)
-        {
-            printf("oi");
-        }
-    }
-
-    do
-    {
-        if(a > 5 || a  + b > 9 && 9/3 == 3)
-        {
-            printf("oi");
-        }
-    } while(a > b);
-
+    if (a>5) { printf("oi"); }  
+    elseif(b<0) { printf("oi"); } 
+    else { printf("oi"); }
 }

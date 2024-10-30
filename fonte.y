@@ -26,60 +26,125 @@
 
 %%
 
-// Programa principal
-Programa_principal: MAIN ABRE_PARENTESIS FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE
-                  | error {yyerror("Erro de sintaxe"); };
+//ESTRUTURA DO PROGRAMA PRINCIPAL
+
+Programa_principal: MAIN ABRE_PARENTESIS FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE ;
+
+//COMANDOS QUE VÃO PODER SER UTILIZADOS NO PROGRAMA
 
 Comandos: Declaracao 
         | Atribuicao 
         | Repeticao 
         | Condicional 
-        | ExpressaoAritimetica PVIRGULA
+        | ExpressaoAritmetica PVIRGULA
         | PrintfComando   
         | ScanfComando
-        | Comandos Comandos
-        | error {yyerror("Erro no comando"); };
+        | Comandos Comandos ;
+
+//TIPO QUE UMA VARIÁVEL PODE TER
 
 Tipo: TIPO_INT | TIPO_FLOAT | STRING ;
 
-//DECLARAÇÃO - PRONTA
-Declaracao: Tipo Declaracao_aux | Tipo IDENTIFICADOR IGUAL FLOAT PVIRGULA | Tipo IDENTIFICADOR IGUAL INT PVIRGULA | Tipo IDENTIFICADOR IGUAL IDENTIFICADOR PVIRGULA | Tipo IDENTIFICADOR IGUAL ASPAS_DUPLAS Identificador_aux ASPAS_DUPLAS PVIRGULA
+//DECLARAÇÃO DE VARIÁVEL
 
-Declaracao_aux: IDENTIFICADOR VIRGULA Declaracao_aux | IDENTIFICADOR PVIRGULA
+Declaracao: Tipo Declaracao_aux PVIRGULA ;
 
-//ATRIBUIÇÃO - PRONTA
-Atribuicao: IDENTIFICADOR IGUAL ExpressaoAritimetica PVIRGULA 
-          | IDENTIFICADOR IGUAL ASPAS_DUPLAS IDENTIFICADOR ASPAS_DUPLAS PVIRGULA
-          | INCREMENTO PVIRGULA
+Declaracao_aux: IDENTIFICADOR IGUAL ExpressaoAritmetica
+               | IDENTIFICADOR IGUAL ExpressaoAritmetica VIRGULA Declaracao_aux
+               | IDENTIFICADOR VIRGULA Declaracao_aux
+               | IDENTIFICADOR 
+               | IDENTIFICADOR IGUAL ASPAS_DUPLAS Identificador_aux ASPAS_DUPLAS ;
 
-//CONDICIONAL - PRONTA
-Condicional: IF ABRE_PARENTESIS Condicao_aux FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE | ELSEIF ABRE_PARENTESIS Condicao_aux FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE | ELSE ABRE_CHAVE Comandos FECHA_CHAVE
+//ATRIBUIÇÃO DE VARIÁVEL
 
-//REPETIÇÃO - PRONTA
-Repeticao: WHILE ABRE_PARENTESIS Condicao_aux FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE 
-         | FOR ABRE_PARENTESIS Atribuicao Condicao_aux PVIRGULA INCREMENTO FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE 
-         |  DO ABRE_CHAVE Comandos FECHA_CHAVE WHILE ABRE_PARENTESIS Condicao_aux FECHA_PARENTESIS PVIRGULA
+Atribuicao: IDENTIFICADOR IGUAL ExpressaoAritmetica PVIRGULA 
+          | IDENTIFICADOR IGUAL ASPAS_DUPLAS Identificador_aux ASPAS_DUPLAS PVIRGULA
+          | INCREMENTO PVIRGULA ;
+
+//CONDICIONAL
+
+Condicional: IF ABRE_PARENTESIS Condicao FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE 
+            | ELSEIF ABRE_PARENTESIS Condicao_aux FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE 
+            | ELSE ABRE_CHAVE Comandos FECHA_CHAVE ;
+
+//REPETIÇÃO 
+
+Repeticao: WHILE ABRE_PARENTESIS Condicao FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE 
+         | FOR ABRE_PARENTESIS Atribuicao_aux Condicao PVIRGULA INCREMENTO FECHA_PARENTESIS ABRE_CHAVE Comandos FECHA_CHAVE 
+         |  DO ABRE_CHAVE Comandos FECHA_CHAVE WHILE ABRE_PARENTESIS Condicao FECHA_PARENTESIS PVIRGULA ;
+
+Atribuicao_aux: IDENTIFICADOR IGUAL FLOAT PVIRGULA
+            | IDENTIFICADOR IGUAL INT PVIRGULA;
 
 
-Condicao_aux: Condicao_aux OP_AR Condicao_aux | Condicao_aux OP_LOG Condicao_aux | INT | IDENTIFICADOR | FLOAT 
+//CONDIÇÕES QUE VÃO PODER SER UTILZADAS NOS COMANDO CONDICIONAIS E NOS LAÇOS DE REPETIÇÃO
 
-//EXPRESSÃO ARITMÉTICA - PRONTA
-ExpressaoAritimetica: ExpressaoAritimetica OP_AR ExpressaoAritimetica 
+Condicao: Condicao_aux OP_LOG Condicao_aux ;
+
+Condicao_aux: Condicao_aux OP_LOG Condicao_aux 
+            | INT 
+            | IDENTIFICADOR 
+            | FLOAT 
+            | FLOAT OP_AR FLOAT 
+            | FLOAT OP_AR INT
+            | FLOAT OP_AR IDENTIFICADOR
+            | INT OP_AR INT
+            | INT OP_AR FLOAT
+            | INT OP_AR IDENTIFICADOR
+            | IDENTIFICADOR OP_AR IDENTIFICADOR
+            | IDENTIFICADOR OP_AR INT
+            | IDENTIFICADOR OP_AR FLOAT ;
+
+//EXPRESSÃO ARITMÉTICA
+
+ExpressaoAritmetica: ExpressaoAritmetica OP_AR ExpressaoAritmetica 
                     | IDENTIFICADOR 
                     | INT 
                     | FLOAT
                     | IDENTIFICADOR OP_AR INT
                     | IDENTIFICADOR OP_AR FLOAT
                     | IDENTIFICADOR OP_AR IDENTIFICADOR
-                    | IDENTIFICADOR IGUAL IDENTIFICADOR
+                    | IDENTIFICADOR IGUAL IDENTIFICADOR ;
 
-//PRINT - PRONTO
-PrintfComando: PRINTF ABRE_PARENTESIS ASPAS_DUPLAS Identificador_aux CODIGO_AUX ASPAS_DUPLAS VIRGULA ExpressaoAritimetica FECHA_PARENTESIS PVIRGULA 
-              | PRINTF ABRE_PARENTESIS ASPAS_DUPLAS Identificador_aux ASPAS_DUPLAS FECHA_PARENTESIS PVIRGULA 
+//PRINT 
 
-Identificador_aux: IDENTIFICADOR | IDENTIFICADOR Identificador_aux | PRINTF | PRINTF Identificador_aux | IF | IF Identificador_aux | ELSE | ELSE Identificador_aux | ELSEIF | ELSEIF Identificador_aux | STRING | STRING Identificador_aux | WHILE | WHILE Identificador_aux | FOR | FOR Identificador_aux | PRINTF | PRINTF Identificador_aux | SCANF | SCANF Identificador_aux | MAIN | MAIN Identificador_aux | INT | INT Identificador_aux | FLOAT | FLOAT Identificador_aux| OP_AR | OP_AR Identificador_aux| OP_LOG | OP_LOG Identificador_aux | OR | OR Identificador_aux | AND | AND Identificador_aux | NOT | NOT Identificador_aux| IGUAL | IGUAL Identificador_aux | VIRGULA | VIRGULA Identificador_aux| BARRA | BARRA Identificador_aux | PVIRGULA | PVIRGULA Identificador_aux | PONTO | PONTO Identificador_aux | DOIS_PONTOS | DOIS_PONTOS Identificador_aux | HASHTAG | HASHTAG Identificador_aux
+PrintfComando: PRINTF ABRE_PARENTESIS ASPAS_DUPLAS Identificador_aux CODIGO_AUX ASPAS_DUPLAS VIRGULA ExpressaoAritmetica FECHA_PARENTESIS PVIRGULA 
+              | PRINTF ABRE_PARENTESIS ASPAS_DUPLAS Identificador_aux ASPAS_DUPLAS FECHA_PARENTESIS PVIRGULA ;
 
-ScanfComando: SCANF ABRE_PARENTESIS ASPAS_DUPLAS CODIGO_AUX ASPAS_DUPLAS VIRGULA AND IDENTIFICADOR FECHA_PARENTESIS PVIRGULA 
+//FUNÇÃO AUXILIAR UTILIZADA PARA ESCREVER QUALQUER COISA NO PRINT E NA ATRIBUIÇÃO DE UMA STRING
+
+Identificador_aux: IDENTIFICADOR | IDENTIFICADOR Identificador_aux 
+                | PRINTF | PRINTF Identificador_aux 
+                | IF | IF Identificador_aux 
+                | ELSE | ELSE Identificador_aux 
+                | ELSEIF | ELSEIF Identificador_aux 
+                | STRING  | STRING Identificador_aux 
+                | WHILE | WHILE Identificador_aux 
+                | FOR | FOR Identificador_aux 
+                | PRINTF | PRINTF Identificador_aux 
+                | SCANF | SCANF Identificador_aux 
+                | MAIN | MAIN Identificador_aux 
+                | INT | INT Identificador_aux 
+                | FLOAT | FLOAT Identificador_aux
+                | OP_AR | OP_AR Identificador_aux
+                | OP_LOG | OP_LOG Identificador_aux 
+                | OR | OR Identificador_aux 
+                | AND | AND Identificador_aux 
+                | NOT | NOT Identificador_aux
+                | IGUAL | IGUAL Identificador_aux 
+                | VIRGULA | VIRGULA Identificador_aux
+                | BARRA | BARRA Identificador_aux 
+                | PVIRGULA | PVIRGULA Identificador_aux 
+                | PONTO | PONTO Identificador_aux 
+                | DOIS_PONTOS | DOIS_PONTOS Identificador_aux 
+                | HASHTAG | HASHTAG Identificador_aux ;
+
+
+//SCANF 
+
+ScanfComando: SCANF ABRE_PARENTESIS ASPAS_DUPLAS CODIGO_AUX ASPAS_DUPLAS VIRGULA AND IDENTIFICADOR FECHA_PARENTESIS PVIRGULA ;
+
+
 %%
 
 extern FILE *yyin;
