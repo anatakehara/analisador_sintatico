@@ -1,5 +1,13 @@
-main() {
-    if (a>5) { printf("oi"); }  
-    elseif(b<0) { printf("oi"); } 
-    else { printf("oi"); }
+main() 
+{
+    printf("oi");
+
+    printf("c: %d", n);
+
+    printf("printf main if elseif for while # !");
+
+    scanf("%d", &u);
+    scanf("%f", &u);
+    scanf("%s", &u);
+    scanf("%t", &u);
 }

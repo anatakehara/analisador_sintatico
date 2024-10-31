@@ -40,7 +40,7 @@ MENOS[-]
 {NUMERO}+[.]{NUMERO}+                {return FLOAT; }
 {NUMERO}+[,]{NUMERO}+               { printf("Token inválido: %s - Linha: %d\n", yytext, linhas); erros++; }
 
-{PORCENTAGEM}{CODIGO} {return CODIGO_AUX;}
+{PORCENTAGEM}{CODIGO}               { return CODIGO_AUX;}
 
 {CARACTERE}+{MAIS}{MAIS}         {return INCREMENTO; }           
 {CARACTERE}+{NUMERO}+{MAIS}{MAIS}   {return INCREMENTO; }          
@@ -59,7 +59,8 @@ MENOS[-]
 \&          {return AND;}
 
 \==            {return OP_LOG; }
-[+|-|%|*|/] {return OP_AR;}
+[+|\%|\*|\/] {return OP_AR;}
+"-"         {return OP_AR;}
 [|\>|\<]    {return OP_LOG;} 
 \=              {return IGUAL;}       
 
@@ -67,11 +68,8 @@ MENOS[-]
 [\(]               {return ABRE_PARENTESIS;}    
 [\}]                    {return FECHA_CHAVE;}
 [\)]               {return FECHA_PARENTESIS;}
-\[                  {return ABRE_COLCHETES;}    
-\]                    {return FECHA_COLCHETES; }  
 
 \"                 {return ASPAS_DUPLAS;}     
-\'                    {return ASPAS_SIMPLES;}
 ,                       {return VIRGULA;}
 [\\]                    {return BARRA;}
 \#                     {return HASHTAG; }
