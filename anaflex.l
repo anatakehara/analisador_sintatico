@@ -40,7 +40,9 @@ MENOS[-]
 {NUMERO}+[.]{NUMERO}+                {return FLOAT; }
 {NUMERO}+[,]{NUMERO}+               { printf("Token inválido: %s - Linha: %d\n", yytext, linhas); erros++; }
 
+
 {PORCENTAGEM}{CODIGO}               { return CODIGO_AUX;}
+
 
 {CARACTERE}+{MAIS}{MAIS}         {return INCREMENTO; }           
 {CARACTERE}+{NUMERO}+{MAIS}{MAIS}   {return INCREMENTO; }          

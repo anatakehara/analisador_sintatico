@@ -1,13 +1,50 @@
 main() 
 {
-    printf("oi");
+    int num, i, sum = 0;
 
-    printf("c: %d", n);
+    printf("Digite um número inteiro: ");
+    scanf("%d", &num);
 
-    printf("printf main if elseif for while # !");
+    if (num > 0) 
+    {
+        printf("O número é positivo.");
+    } 
+    elseif (num < 0) 
+    {
+        printf("O número é negativo.");
+    } 
+    else {
+        printf("O número é zero.");
+    }
 
-    scanf("%d", &u);
-    scanf("%f", &u);
-    scanf("%s", &u);
-    scanf("%t", &u);
+    printf("Números de 1 a %d", num);
+    for (i = 1; i < num; i++) 
+    {
+        printf("%d", i);
+    }
+
+
+    i = 1;
+    printf("Soma dos números de 1 a %d", num);
+    while (i < num) 
+    {
+        sum = i+1; 
+        i++;
+    }
+    printf("%d", sum);
+
+    
+    int count = 0;
+    printf("Digite um número positivo para continuar (ou negativo para sair): ");
+    do {
+        scanf("%d", &num);
+        if (num > 0) 
+        {
+            count++;
+            printf("Você digitou: %d", num);
+        }
+    } while (num > 0);
+
+    printf("Você digitou %d números positivos.", count);
+
 }

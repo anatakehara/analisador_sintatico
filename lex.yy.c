@@ -912,163 +912,163 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 43 "anaflex.l"
-{printf("%s\n", yytext); return CODIGO_AUX;}
+#line 44 "anaflex.l"
+{ return CODIGO_AUX;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 45 "anaflex.l"
+#line 47 "anaflex.l"
 {return INCREMENTO; }           
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 46 "anaflex.l"
+#line 48 "anaflex.l"
 {return INCREMENTO; }          
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 47 "anaflex.l"
+#line 49 "anaflex.l"
 {return INCREMENTO; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 49 "anaflex.l"
+#line 51 "anaflex.l"
 {return INCREMENTO; }           
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 50 "anaflex.l"
+#line 52 "anaflex.l"
 {return INCREMENTO; }          
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 51 "anaflex.l"
+#line 53 "anaflex.l"
 {return INCREMENTO; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 53 "anaflex.l"
+#line 55 "anaflex.l"
 
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 55 "anaflex.l"
+#line 57 "anaflex.l"
 {return OP_LOG; }  
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 56 "anaflex.l"
+#line 58 "anaflex.l"
 {return OP_LOG;}    
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 57 "anaflex.l"
+#line 59 "anaflex.l"
 {return NOT;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 59 "anaflex.l"
+#line 61 "anaflex.l"
 {return AND;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 61 "anaflex.l"
+#line 63 "anaflex.l"
 {return OP_LOG; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 62 "anaflex.l"
+#line 64 "anaflex.l"
 {return OP_AR;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 63 "anaflex.l"
+#line 65 "anaflex.l"
 {return OP_AR;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 64 "anaflex.l"
+#line 66 "anaflex.l"
 {return OP_LOG;} 
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 65 "anaflex.l"
+#line 67 "anaflex.l"
 {return IGUAL;}       
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 67 "anaflex.l"
+#line 69 "anaflex.l"
 {return ABRE_CHAVE;}   
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 68 "anaflex.l"
+#line 70 "anaflex.l"
 {return ABRE_PARENTESIS;}    
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 69 "anaflex.l"
+#line 71 "anaflex.l"
 {return FECHA_CHAVE;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 70 "anaflex.l"
+#line 72 "anaflex.l"
 {return FECHA_PARENTESIS;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 72 "anaflex.l"
+#line 74 "anaflex.l"
 {return ASPAS_DUPLAS;}     
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 73 "anaflex.l"
+#line 75 "anaflex.l"
 {return VIRGULA;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 74 "anaflex.l"
+#line 76 "anaflex.l"
 {return BARRA;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 75 "anaflex.l"
+#line 77 "anaflex.l"
 {return HASHTAG; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 76 "anaflex.l"
+#line 78 "anaflex.l"
 {return PVIRGULA;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 77 "anaflex.l"
+#line 79 "anaflex.l"
 {return PONTO; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 78 "anaflex.l"
+#line 80 "anaflex.l"
 {return DOIS_PONTOS;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 81 "anaflex.l"
+#line 83 "anaflex.l"
 
 	YY_BREAK
 case 49:
 /* rule 49 can match eol */
 YY_RULE_SETUP
-#line 84 "anaflex.l"
+#line 86 "anaflex.l"
 { linhas++; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 87 "anaflex.l"
+#line 89 "anaflex.l"
 { printf("Token inválido: %c - Linha: %d\n", yytext[0], linhas); erros++; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 89 "anaflex.l"
+#line 91 "anaflex.l"
 ECHO;
 	YY_BREAK
 #line 1075 "lex.yy.c"
@@ -2076,7 +2076,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 89 "anaflex.l"
+#line 91 "anaflex.l"
 
 
 
