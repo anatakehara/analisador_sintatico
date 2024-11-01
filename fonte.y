@@ -1,3 +1,4 @@
+/*Ana Beatriz Gomes Takehara e Heloísa Silveira Bula*/
 %{
     #include "cabecalho.h"
     #include <stdio.h>
